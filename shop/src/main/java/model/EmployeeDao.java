@@ -11,7 +11,7 @@ public class EmployeeDao {
 	
 	public Employee login(String id ,String pw) throws SQLException, ClassNotFoundException {
 		Employee emp = new Employee();
-		String sql = "Select * From employee Where employee_id = ? And employee_pass = password(?)";
+		String sql = "Select * From employee Where employee_id = ? And employee_pass = password(?) And active = 'Y'";
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -31,8 +31,9 @@ public class EmployeeDao {
 			}
 		
 		} finally {
-			stmt.close();
-			conn.close();
+			if(rest != null) { rest.close(); }
+			if(stmt != null) { stmt.close(); }
+			if(conn != null) { conn.close(); }
 		}
 		
 		return emp;

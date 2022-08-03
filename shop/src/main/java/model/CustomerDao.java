@@ -30,8 +30,9 @@ public class CustomerDao {
 			}
 		
 		} finally {
-			stmt.close();
-			conn.close();
+			if(rest != null) { rest.close(); }
+			if(stmt != null) { stmt.close(); }
+			if(conn != null) { conn.close(); }
 		}
 		
 		return customer;

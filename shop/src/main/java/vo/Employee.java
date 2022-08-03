@@ -45,6 +45,12 @@ public class Employee {
 		this.active = active;
 	}
 	
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", employeePass=" + employeePass + ", employeeName="
+				+ employeeName + ", updateDate=" + updateDate + ", createDate=" + createDate + ", active=" + active
+				+ "]";
+	}
 	
 
 }

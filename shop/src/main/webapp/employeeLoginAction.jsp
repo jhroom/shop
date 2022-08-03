@@ -15,12 +15,11 @@
 	Employee emp = new EmployeeDao().login(empId, empPw);
 	
 	if(emp.getEmployeeId() != null) {
-		System.out.println("dd");
 		session.setAttribute("user", "employee");
 		session.setAttribute("id", emp.getEmployeeId());
 		session.setAttribute("name", emp.getEmployeeName());
-		
 		response.sendRedirect(request.getContextPath()+ "/index.jsp");
+		
 	} else {
 		System.out.println("로그인실패");
 		response.sendRedirect(request.getContextPath()+ "/loginForm.jsp?errorMsg=loginFail");

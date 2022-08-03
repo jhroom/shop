@@ -51,5 +51,13 @@ public class Customer {
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
+	
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", customerPass=" + customerPass + ", customerName="
+				+ customerName + ", customerAdress=" + customerAdress + ", customerTel=" + customerTel + ", updateDate="
+				+ updateDate + ", createDate=" + createDate + "]";
+	}
+	
 
 }
