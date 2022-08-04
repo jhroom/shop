@@ -15,6 +15,7 @@
 		}
 	%>
    <div>
+   <p><%=session.getAttribute("id") %>님 반갑습니다.</p>
       <form id="customerForm" method="post" action="<%=request.getContextPath()%>/customerLoginAction.jsp">
          <fieldset>
             <legend>쇼핑몰 고객 로그인</legend>
@@ -50,6 +51,10 @@
             <button type="button" id="employeeBtn">스텝 로그인</button>
          </fieldset>
       </form>
+   </div>
+   	<p><a href="index.jsp">인덱스홈</a></p>
+   <div>
+   
    </div>
 </body>
 <script>

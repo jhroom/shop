@@ -1,27 +1,26 @@
-<%@page import="model.CustomerDao"%>
+<%@page import="service.CustomerService"%>
+<%@page import="repository.CustomerDao"%>
 <%@page import="vo.Customer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
 <%
 	String customerId = request.getParameter("customerId");
 	String customerPass = request.getParameter("customerPass");
 	
-	Customer customer = null;
+	Customer customer = new Customer();
+	customer.setCustomerId(customerId);
+	customer.setCustomerPass(customerPass);
 	
-	CustomerDao dao = new CustomerDao();
+	CustomerService customerService = new CustomerService();
+	Customer customer2 = new Customer();
 	
-	customer = dao.login(customerId, customerPass);
-	
-	if( customer.getCustomerId() != null) {
+	if( customerService.getCustomer(customer).getCustomerId() != null ) {
+		System.out.println("세션 적용전까지 성공");
+		customer2 = customerService.getCustomer(customer);
+		
 		session.setAttribute("user", "customer");
-		session.setAttribute("id", customer.getCustomerId());
-		session.setAttribute("name", customer.getCustomerName());
+		session.setAttribute("id", customer2.getCustomerId());
+		session.setAttribute("name", customer2.getCustomerName());
 		
 		response.sendRedirect(request.getContextPath()+"/index.jsp");
 	} else {
@@ -30,8 +29,4 @@
 	}
 	
 	
-	
-	
 %>
-</body>
-</html>
