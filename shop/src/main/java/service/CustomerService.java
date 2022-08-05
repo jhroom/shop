@@ -6,8 +6,33 @@ import repository.CustomerDao;
 import repository.OutIdDao;
 import vo.Customer;
 
-public class CustomerService {
-		//loginAciton.jsp가 호출  
+public class CustomerService {		//loginAciton.jsp가 호출 
+	private CustomerDao customerDao;
+	
+	public boolean addCustomer(Customer customer) {
+		boolean result = false; 
+		Connection conn = null;
+		
+		try {
+			conn = new DbUtil().getConnection();
+			conn.setAutoCommit(false);
+			this.customerDao = new CustomerDao();
+			
+			if(customerDao.insertCustomer(customer, conn) == 1) {
+				result = true;
+				conn.commit();
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			try { conn.rollback(); } catch (SQLException e1) { e1.printStackTrace(); }
+			
+		} finally {
+			try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
+		
+		return result;
+	}
 		
 	public Customer getCustomer(Customer customer) {
 		Connection conn = null;
@@ -16,17 +41,14 @@ public class CustomerService {
 			conn = new DbUtil().getConnection();
 			conn.setAutoCommit(false);
 			
-			CustomerDao customerDao = new CustomerDao();
+			this.customerDao = new CustomerDao();
 			temp = customerDao.selectCustomerByIdAndPW(customer.getCustomerId(), customer.getCustomerPass(), conn);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
 		}
 		
 		return temp;
@@ -40,7 +62,7 @@ public class CustomerService {
 		conn = new DbUtil().getConnection();
 		conn.setAutoCommit(false);
 		
-		CustomerDao customerDao = new CustomerDao();
+		this.customerDao = new CustomerDao();
 		int customerRow = customerDao.deleteCustomer(paramCustomer, conn);
 		
 		OutIdDao outIdDao = new OutIdDao();

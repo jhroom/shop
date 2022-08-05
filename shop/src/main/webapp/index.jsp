@@ -6,13 +6,13 @@
 <title>Insert title here</title>
 </head>
 <body>
- 	<%=session.getAttribute("user")%> <!-- customer / employee -->
+ 	user : <%=session.getAttribute("user")%> <!-- customer / employee -->
    <br>
-   <%=session.getAttribute("id")%> <!-- 로그인 아이디 -->
+   id : <%=session.getAttribute("id")%> <!-- 로그인 아이디 -->
    <br>
-   <%=session.getAttribute("name")%> <!-- 로그인 이름 -->
+   name : <%=session.getAttribute("name")%> <!-- 로그인 이름 -->
    <div>
-   <p><a href="loginForm.jsp">로그인창</a></p>
+   <p><a href="loginForm.jsp">로그인페이지</a></p>
    <p><a href="logoutShop.jsp">로그아웃</a></p>
    	<p><a href="deleteShop.jsp">회원탈퇴</a></p>
    </div>

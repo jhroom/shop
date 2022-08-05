@@ -9,6 +9,27 @@ import vo.Customer;
 
 public class CustomerDao {
 	
+	public int insertCustomer(Customer customer,Connection conn) throws SQLException {
+		int row = 0;
+		String sql ="Insert Into customer"
+				+ " (customer_id, customer_pass, customer_name, customer_address, customer_telephone, update_date, create_date)"
+				+ " Values ( ?, password(?), ?, ?, ?, now(), now() )";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, customer.getCustomerId());
+			stmt.setString(2, customer.getCustomerPass());
+			stmt.setString(3, customer.getCustomerName());
+			stmt.setString(4, customer.getCustomerAdress());
+			stmt.setString(5, customer.getCustomerTel());
+			row = stmt.executeUpdate();
+		}
+		finally {
+			stmt.close();
+		}
+		return row;
+	}
+	
 	// 탈퇴
 	// CustomerService.removeCustomer(Customer paramCustomer)가 호출
 			//이제는 예외처리를해야한다 위에곳으로 던지고 jsp까지 던지면 rollback을 할 수가 없기때문에

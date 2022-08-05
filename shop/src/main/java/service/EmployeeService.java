@@ -7,6 +7,31 @@ import repository.OutIdDao;
 import vo.Employee;
 
 public class EmployeeService {
+	private EmployeeDao employeeDao;
+	
+	public boolean addEmployee(Employee employee) {
+		boolean result = false;
+		Connection conn = null;
+		
+		try {
+			conn = new DbUtil().getConnection();
+			conn.setAutoCommit(false);
+			this.employeeDao = new EmployeeDao();
+			if(employeeDao.insertEmployee(employee, conn) == 1) {
+				result = true;
+				conn.commit();
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			try { conn.rollback(); } catch (SQLException e1) { e1.printStackTrace(); }
+			
+		} finally {
+			try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
+		
+		return result;
+	}
 	
 	public Employee getEmployee(String id, String pw) {
 		Employee temp = null;
@@ -49,30 +74,23 @@ public class EmployeeService {
 		int outRow = outIdDao.insertOutId(paramEmployee.getEmployeeId(), conn);
 		
 		if(customerRow + outRow ==2) {
-							System.out.print("  둘다ok");
 			conn.commit();
 			temp = true;
 		} else {
-							System.out.print("  롤백메서드2개중 오류 찾기");
 			conn.rollback();
 		}
 		
 		} catch (Exception e) {
-			System.out.print("  전체try오류"); 
 			e.printStackTrace();
 			try {
-				System.out.print("  롤백");
 				conn.rollback();
 			} catch (SQLException e1) {
-				System.out.print("  롤백오류");
 				e1.printStackTrace();
 			}
 		} finally {
 			try {
-				System.out.print("  finally마무리");
 				conn.close();
 			} catch (SQLException e) {
-				System.out.print("여기서오류2");
 				e.printStackTrace();
 			}
 		}

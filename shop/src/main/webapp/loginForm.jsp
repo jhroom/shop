@@ -30,6 +30,7 @@
                </tr>
             </table>
             <button type="button" id="customerBtn">고객 로그인</button>
+            <a href="./addCustomer.jsp">고객 회원가입</a>
          </fieldset>
       </form>
    </div>
@@ -49,6 +50,7 @@
                </tr>
             </table>
             <button type="button" id="employeeBtn">스텝 로그인</button>
+            <a href="./addEmployee.jsp">직원 회원가입</a>
          </fieldset>
       </form>
    </div>

@@ -8,6 +8,26 @@ import vo.Employee;
 
 public class EmployeeDao {
 	
+	public int insertEmployee(Employee employee, Connection conn) throws SQLException {
+		int row = 0;
+		String sql = "Insert Into employee (employee_id, employee_pass, employee_name, update_date, create_date)"
+				+ " Values (?, password(?), ?, now(), now() )";
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, employee.getEmployeeId());
+			stmt.setString(2, employee.getEmployeePass());
+			stmt.setString(3, employee.getEmployeeName());
+			row = stmt.executeUpdate();
+		
+		} finally {
+			stmt.close();
+		}
+		
+		return row;
+	}
+	
 	public int deleteEmployee(Employee paramEmployee, Connection conn) throws SQLException {
 		int row = 0;
 		String sql ="Delete From employee Where employee_id = ? And employee_pass = password(?)";
