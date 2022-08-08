@@ -17,7 +17,8 @@ public class GoodsService {
 	// 트랜잭션 + action이나 dao가 해서는 안되는 일
 	
 	
-	public void addGoods(Goods goods, GoodsImg goodsImg) {
+	public boolean addGoods(Goods goods, GoodsImg goodsImg) {
+		boolean result = false;
 		Connection conn = null;
 		this.goodsDao = new GoodsDao();
 		this.goodsImgDao = new GoodsImgDao();
@@ -35,6 +36,7 @@ public class GoodsService {
 				}
 			}
 			conn.commit();
+			result = true;
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -43,6 +45,7 @@ public class GoodsService {
 		} finally {
 			try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
 		}
+		return result;
 	}
 	
 	public Map<String, Object> getGoodsAndImg(int goodsNo){

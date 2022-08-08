@@ -8,7 +8,7 @@
 <body>
 	<h1>상품추가 form</h1>
 	
-	<form action="<%=request.getContextPath() %>/admin/addGoodsAction.jsp" method="post" enctype="multipart/form-date">
+	<form action="<%=request.getContextPath() %>/admin/addGoodsAction.jsp" method="post" enctype="multipart/form-data">
 	
 		이미지<input type="file" name="goodsFile">
 		이름<input type="text" name="goodsName">

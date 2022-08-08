@@ -38,16 +38,11 @@ public class GoodsImg {
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
-	
 	@Override
 	public String toString() {
 		return "GoodsImg [goodsImgNo=" + goodsImgNo + ", fileName=" + fileName + ", originFileName=" + originFileName
-				+ ", contentType=" + contentType + ", createDate=" + createDate + ", getGoodsImgNo()=" + getGoodsImgNo()
-				+ ", getFileName()=" + getFileName() + ", getOriginFileName()=" + getOriginFileName()
-				+ ", getContentType()=" + getContentType() + ", getCreateDate()=" + getCreateDate() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", contentType=" + contentType + ", createDate=" + createDate + "]";
 	}
-	
 	
 
 }
