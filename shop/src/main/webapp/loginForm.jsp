@@ -55,6 +55,8 @@
       </form>
    </div>
    	<p><a href="index.jsp">인덱스홈</a></p>
+   	<p><a href="logoutShop.jsp">로그아웃</a></p>
+   	<p><a href="deleteShop.jsp">회원탈퇴</a></p>
    <div>
    
    </div>

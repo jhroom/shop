@@ -25,7 +25,7 @@
 		</div>
 	</form>
 	
-	<!-- 고객가입 form -->
+	<!-- 직원가입 form -->
 	<%
 		String ckeckedId = "";
 		if( request.getParameter("checkedId") != null) {
