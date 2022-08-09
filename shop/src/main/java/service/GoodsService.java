@@ -86,21 +86,26 @@ public class GoodsService {
 		return lastPage;
 	}
 	
-	public boolean modifyGoods(Goods goods) {
+	public boolean modifyGoods(Goods goods, GoodsImg goodsImg) {
 		boolean result = false;
 		int row = 0;
 		Connection conn = null;
 		this.goodsDao = new GoodsDao();
+		this.goodsImgDao = new GoodsImgDao();
 		
 		try {
 			conn = new DbUtil().getConnection();
 			conn.setAutoCommit(false);
-			row = goodsDao.updateGoods(goods, conn);
-			if( row != 1) {
+			goodsImg.setGoodsImgNo(goods.getGoodsNo()); //action에서 굿즈에저장한 No를 이미지에도셋팅
+			
+			//굿즈 와 굿즈이미지 업데이트 둘다 성공한다면
+			row = goodsDao.updateGoods(goods, conn) + goodsImgDao.updateGoodsImg(goodsImg, conn);
+			if( row == 2) {
+				conn.commit();
+				result = true;
+			} else {
 				throw new Exception();
 			}
-			conn.commit();
-			result = true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();

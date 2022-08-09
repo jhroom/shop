@@ -4,6 +4,12 @@
 <%@page import="repository.EmployeeDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+	//관리자외 접근금지
+	if(!"employee".equals(session.getAttribute("user")) ) {
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?errorMsg=Invalid Acess");
+		return;
+	}
+
 	ArrayList<Employee> list = new ArrayList<>();
 
 	int currentPage = 1;

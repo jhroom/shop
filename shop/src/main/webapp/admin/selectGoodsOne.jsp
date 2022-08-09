@@ -3,17 +3,28 @@
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+	//관리자외 접근금지
+	if(!"employee".equals(session.getAttribute("user")) ) {
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?errorMsg=Invalid Acess");
+		return;
+	}
+
 	Map<String, Object> goodsOne = null;
 
-	int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+	int goodsNo = 0;
+	if(request.getParameter("goodsNo") != null ) {
+		goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+	} else {
+		response.sendRedirect(request.getContextPath()+"/admin/adminGoodsList.jsp?errorMsg=Invalid Acess");
+		return;
+	}
 		System.out.println("goodsNo : " + goodsNo);
 		
 	GoodsService goodsService = new GoodsService();
 	
-	//상품번호에 따른 goods img 합친 객체
+	//goodsNo 따른 goods,img 합친 객체
 	goodsOne = goodsService.getGoodsAndImg(goodsNo);
 		System.out.println("goodsOne : " + goodsOne);
-	goodsOne.entrySet();
 
 %>
 <!DOCTYPE html>
@@ -23,6 +34,9 @@
 <title>상품 상세보기</title>
 </head>
 <body>
+	<div>
+		<img src="<%=request.getContextPath() %>/upload/<%=goodsOne.get("fileName") %>">
+	</div>
 	<div>
 		<table>
 		<%
@@ -36,6 +50,8 @@
 			}
 		%>
 	</table>
+	<a href="<%=request.getContextPath() %>/admin/updateGoodsForm.jsp?goodsNo=<%=goodsNo%>">상품수정</a>
+	<a href="<%=request.getContextPath() %>/admin/adminGoodsList.jsp">상품관리페이지</a>
 	</div>
 
 </body>

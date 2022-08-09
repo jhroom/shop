@@ -2,6 +2,7 @@
 <%
 	if(!"employee".equals(session.getAttribute("user")) ) {
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?errorMsg=Invalid Acess");
+		return;
 	}
 %>
 

@@ -4,12 +4,15 @@
 <%@page import="service.GoodsService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+	//관리자외 접근금지
 	if(!"employee".equals(session.getAttribute("user")) ) {
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?errorMsg=Invalid Acess");
+		return;
 	}
 
-	int rowPerPage = 5;
+	int rowPerPage = 5; //페이지 당 보여줄 상품갯수
 	int currentPage = 1;
+	
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
@@ -17,14 +20,17 @@
 	List<Goods> goodsList = new ArrayList<>();
 	
 	GoodsService goodsService = new GoodsService();
+	
+	//페이지에따라 받아오는 상품리스트객체
 	goodsList = goodsService.getGoodsListByPage(rowPerPage, currentPage);
 	
+	//상품  총 개수
 	int totalGoods = goodsService.lastPage();
 		System.out.println("totalGoods : " + totalGoods);
 	
 	//마지막페이지 구하기
 	int lastPage = (int)Math.ceil((double)totalGoods/rowPerPage);
-	System.out.println("lastPage : " + lastPage);
+		System.out.println("lastPage : " + lastPage);
 	
 	
 %>
