@@ -16,14 +16,11 @@
 	%>
 	<h3>고객 회원가입 폼</h3>
 	<!-- id check form -->
-	<form action="<%=request.getContextPath() %>/idCheckAction.jsp" method="post" id="idForm">
-		<input type="hidden" name="customer" value="addCustomer">
 		<div>
-		아이디중복검사
-		<input type="text" name="checkId" id="unckeckId">
-		<button type="button" id="idBtn">중복확인</button>
+			아이디중복검사
+			<input type="text" name="idck" id="idck">
+			<button type="button" id="idckBtn">중복확인</button>
 		</div>
-	</form>
 	
 	<!-- 고객가입 form -->
 	<%
@@ -57,21 +54,31 @@
 </body>
 <script>
 	// 회원가입 빈칸검사
-	$('#idBtn').click(function(){
-		
-		if( $('#unckeckId').val().length < 4 ) {
-			alert('아이디를 4글자 이상 입력하시오');
-			$('#unckeckId').focus();
-			return;
+	$('#idckBtn').click(function() {
+		if($('#idck').val().length < 4 || $('#idck').val().length > 13) {
+			alert('ID는 4자이상 13자 이하입니다.');
 		} else {
-			idForm.submit();
+			$.ajax({
+				url : '/shop/idckController',
+				type : 'post',
+				data : {idck : $('#idck').val()},
+				success : function(json) {
+					if(json == 'y') {
+						alert('사용가능한 아이디 입니다.');
+						$('#customerId').val($('#idck').val());
+					} else {
+						alert('이미 사용중인 아이디 입니다.');
+						$('#customerId').val('');
+					}
+				}
+			});
 		}
 	});
 	
 	$('#btn').click(function(){
 		
 		if( $('#id').val() == "" ) {
-			alert('아이디를 입력해주세요');
+			alert('아이디중복검사를 해주세요');
 			$('#unckeckId').focus();
 			return;
 		} 

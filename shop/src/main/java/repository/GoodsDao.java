@@ -14,8 +14,61 @@ import vo.Goods;
 
 public class GoodsDao {
 	
+	//고객용 상품리스트 페이지
+	public List<Map<String,Object>> customerGoodsListByPage(int beginRow,int rowPerPage,Connection conn) throws SQLException{
+		List<Map<String,Object>> list = new ArrayList<>();
+		Map<String,Object> map = null;
+		String sql ="SELECT g.goods_name , gi.filename , g.goods_price\r\n"
+				+ "		 FROM goods g INNER JOIN goods_img gi\r\n"
+				+ "		 USING(goods_no)\r\n"
+				+ "		 ORDER BY g.create_date"
+				+ "		 LIMIT ?,?";
+		/*
+		 SELECT g.goods_name , gi.filename , g.goods_price
+		 FROM goods g INNER JOIN goods_img gi
+		 USING(goods_no)
+		 ORDER BY create_date
+		 LIMIT ?,?
+		 */
+		/*
+		 고객이 판매개수 많은 것 부터
+		 SELECT g.goods_no
+		 		, g.goods_name
+		 		, g.goods_price
+		 		, gi.filename
+		 FROM
+		 goods g LEFT JOIN (SELECT goods_no, SUM(order_quantity) sumNum
+							 FROM orders
+							 GROUP BY goods_no) t
+		 		USING(goods_no)
+		 		INNER JOIN goods_img gi
+		 		USING(goods_no)
+		 ORDER BY IFNULL(t.sumNum, 0) DESC
+		 */
+		PreparedStatement stmt = null;
+		ResultSet rest = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, beginRow);
+			stmt.setInt(2, rowPerPage);
+			rest = stmt.executeQuery();
+			while(rest.next()) {
+				map = new HashMap<String ,Object>();
+				map.put("goodsName", rest.getString("goods_name"));
+				map.put("fileName", rest.getString("filename"));
+				map.put("goodsPrice", rest.getInt("goods_price"));
+				list.add(map);
+			}
+		} finally {
+			if(rest != null) {rest.close();}
+			if(stmt != null) {stmt.close();}
+		}
+		
+		return list;
+	}
 	
-	
+	//상품클릭시 보이는 상세보기 
 	public Map<String,Object> selectGoodsAndImgOne(int goodsNO, Connection conn) throws SQLException {
 		Map<String,Object> map = null;
 		String sql ="SELECT g.goods_no goodsNo, g.goods_name goodsName, g.goods_price goodsPrice,"
@@ -52,6 +105,7 @@ public class GoodsDao {
 		return map;
 	}
 	
+	//goodsList 에서 쓸 goods Count
 	public int selectCountGoods(Connection conn) throws SQLException {
 		int lastPage = 0;
 		String sql = "SELECT count(*) count FROM goods";
@@ -70,7 +124,7 @@ public class GoodsDao {
 		}
 		return lastPage;
 	}
-	
+	//Goods 정보 바꾸기
 	public int updateGoods(Goods goods, Connection conn) throws SQLException {
 		int row = 0;
 		String sql = "UPDATE goods SET goods_name=?, goods_price=?, update_date=NOW(), sold_out=? WHERE goods_no=?";
@@ -88,7 +142,7 @@ public class GoodsDao {
 		}
 		return row;
 	}
-	
+	//Goods 추가하기
 	public int insertGoods(Goods goods,Connection conn) throws SQLException {
 		int keyId = 0;
 		String sql = "INSERT INTO goods (goods_name,goods_price,update_date,create_date,sold_out)"

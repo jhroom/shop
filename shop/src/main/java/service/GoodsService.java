@@ -16,6 +16,26 @@ public class GoodsService {
 	private GoodsImgDao goodsImgDao;
 	// 트랜잭션 + action이나 dao가 해서는 안되는 일
 	
+	//고객용 상품리스트
+	public List<Map<String,Object>> getCustomerGoodsList(int currentPage, int rowPerPage){
+		List<Map<String,Object>> list = null;
+		Connection conn = null;
+		this.goodsDao = new GoodsDao();
+		int beginRow = (currentPage-1)*rowPerPage;
+		
+		try {
+			conn = new DbUtil().getConnection();
+			list = goodsDao.customerGoodsListByPage(beginRow, rowPerPage, conn);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
+		
+		return list;
+	}
 	
 	public boolean addGoods(Goods goods, GoodsImg goodsImg) {
 		boolean result = false;
@@ -110,6 +130,8 @@ public class GoodsService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			try { conn.rollback(); } catch (SQLException e1) { e1.printStackTrace(); }
+		} finally {
+			try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
 		}
 		return result;
 	}
