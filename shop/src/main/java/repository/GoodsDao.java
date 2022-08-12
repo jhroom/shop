@@ -18,7 +18,7 @@ public class GoodsDao {
 	public List<Map<String,Object>> customerGoodsListByPage(int beginRow,int rowPerPage,Connection conn) throws SQLException{
 		List<Map<String,Object>> list = new ArrayList<>();
 		Map<String,Object> map = null;
-		String sql ="SELECT g.goods_name , gi.filename , g.goods_price\r\n"
+		String sql ="SELECT g.goods_no, g.goods_name , gi.filename , g.goods_price\r\n"
 				+ "		 FROM goods g INNER JOIN goods_img gi\r\n"
 				+ "		 USING(goods_no)\r\n"
 				+ "		 ORDER BY g.create_date"
@@ -43,7 +43,7 @@ public class GoodsDao {
 		 		USING(goods_no)
 		 		INNER JOIN goods_img gi
 		 		USING(goods_no)
-		 ORDER BY IFNULL(t.sumNum, 0) DESC
+		 ORDER BY IF NULL(t.sumNum, 0) DESC
 		 */
 		PreparedStatement stmt = null;
 		ResultSet rest = null;
@@ -56,6 +56,7 @@ public class GoodsDao {
 			while(rest.next()) {
 				map = new HashMap<String ,Object>();
 				map.put("goodsName", rest.getString("goods_name"));
+				map.put("goodsNo", rest.getInt("goods_no"));
 				map.put("fileName", rest.getString("filename"));
 				map.put("goodsPrice", rest.getInt("goods_price"));
 				list.add(map);
