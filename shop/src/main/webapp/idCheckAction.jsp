@@ -17,12 +17,12 @@
 	String checkId = request.getParameter("checkId");
 
 	SignService signService = new SignService();
-	
+	/*
 	if( signService.idCheckService(checkId) ) {
 		response.sendRedirect(request.getContextPath()+"/"+url+".jsp?checkedId="+checkId);
 	} else {
 		response.sendRedirect(request.getContextPath()+"/"+url+".jsp?errorMsg=duplicatedID");
 	}
-	
+	*/
 %>
 
