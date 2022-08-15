@@ -13,7 +13,7 @@
 	
 	<div>
 	<h3>고객 password 변경</h3>
-		<form action="<%=request.getContextPath()%>/customer/updatePassAction.jsp" method="post">
+		<form action="<%=request.getContextPath()%>/admin/customer/updatePassAction.jsp" method="post">
 			변경될ID<input type="text" name="customerId" value="<%=customerId %>" readonly>
 			변경할패스워드<input type="password" name="newCustomerPass">
 			<button type="submit">제출</button>

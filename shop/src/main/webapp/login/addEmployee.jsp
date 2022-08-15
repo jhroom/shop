@@ -16,28 +16,20 @@
 	%>
 	<h3>직원 회원가입 폼</h3>
 	<!-- id check form -->
-	<form action="<%=request.getContextPath() %>/idCheckAction.jsp" method="post" id="idForm">
-		<input type="hidden" name="employee"  value="addEmployee" >
+	
 		<div>
 			아이디중복검사
-			<input type="text" name="checkId" id="unckeckId">
-			<button type="button" id="duplbtn" >중복확인</button>
+			<input type="text" name="idck" id="idck">
+			<button type="button" id="idckbtn" >중복확인</button>
 		</div>
-	</form>
 	
 	<!-- 직원가입 form -->
-	<%
-		String ckeckedId = "";
-		if( request.getParameter("checkedId") != null) {
-			ckeckedId = request.getParameter("checkedId");
-		}
-	%>
-	
-	<form action="<%=request.getContextPath() %>/addEmployeeAction.jsp" method="post" id="form">
+
+	<form action="<%=request.getContextPath() %>/login/addEmployeeAction.jsp" method="post" id="form">
 			
 			
 			<div>employee id
-				<input type="text" name="employeeId" id="id" readonly="readonly" value="<%=ckeckedId%>" ></div>
+				<input type="text" name="employeeId" id="id" readonly="readonly"></div>
 				
 			<div>employee pass
 			
@@ -52,14 +44,27 @@
 </body>
 <script>
 	// 회원가입 빈칸검사
-	$('#duplbtn').click(function(){
+	$('#idckbtn').click(function(){
 		
-		if( $('#unckeckId').val().length < 4 ) {
+		if( $('#idck').val().length < 4 ) {
 			alert('아이디를 4글자 이상 입력하시오');
-			$('#unckeckId').focus();
+			$('#idck').focus();
 			return;
 		} else {
-			idForm.submit();
+			$.ajax({
+				url : '/shop/idckController',
+				type : 'post',
+				data : {idck : $('#idck').val()},
+				success : function(json){
+					if(json == 'y'){
+						alert('사용가능한 아이디 입니다.');
+						$('#id').val( $('#idck').val() );
+					} else {
+						alert('이미 사용중인 아이디 입니다.');
+						 $('#id').val('');
+					}
+				}
+			});
 		}
 	});
 	

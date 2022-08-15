@@ -7,7 +7,7 @@
 <%
 	//로그인 된사람만
 	if(session.getAttribute("user")== null){
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?errorMsg=Not login");
+		response.sendRedirect(request.getContextPath()+"/login/loginForm.jsp?errorMsg=Not login");
 		return;
 	}
 	//로그인 된사람 세션아이디 , 입력된 비밀번호 받기
@@ -38,14 +38,14 @@
 	} else{
 		System.out.print("잘못받아옴");
 		
-		response.sendRedirect(request.getContextPath()+ "/loginForm.jsp?errorMsg=invalidAcess");
+		response.sendRedirect(request.getContextPath()+ "/login/loginForm.jsp?errorMsg=invalidAcess");
 	}
 	
 	if(TnF){ //탈퇴 성공시
 		session.invalidate();
-		response.sendRedirect(request.getContextPath()+ "/loginForm.jsp");
+		response.sendRedirect(request.getContextPath()+ "/login/loginForm.jsp");
 	} else { //비밀번호 틀릴시
-		response.sendRedirect(request.getContextPath()+ "/loginForm.jsp?errorMsg=outShopFail");
+		response.sendRedirect(request.getContextPath()+ "/login/loginForm.jsp?errorMsg=outShopFail");
 	}
 	
 %>

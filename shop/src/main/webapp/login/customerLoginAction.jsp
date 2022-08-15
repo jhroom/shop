@@ -22,10 +22,10 @@
 		session.setAttribute("id", customer2.getCustomerId());
 		session.setAttribute("name", customer2.getCustomerName());
 		
-		response.sendRedirect(request.getContextPath()+"/index.jsp");
+		response.sendRedirect(request.getContextPath()+"/login/index.jsp");
 	} else {
 		System.out.println("로그인실패");
-		response.sendRedirect(request.getContextPath()+ "/loginForm.jsp?errorMsg=loginFail");
+		response.sendRedirect(request.getContextPath()+ "/login/loginForm.jsp?errorMsg=loginFail");
 	}
 	
 	

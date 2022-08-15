@@ -123,6 +123,7 @@ public class EmployeeDao {
 		rest = stmt.executeQuery();
 		
 			if(rest.next()) {
+				System.out.println("id,pw 검색성공");
 				emp.setEmployeeId(rest.getString("employee_id"));
 				emp.setEmployeeName(rest.getString("employee_name"));
 			}

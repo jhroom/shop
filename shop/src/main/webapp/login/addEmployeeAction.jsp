@@ -15,9 +15,9 @@
 	employee.setEmployeeName(employeeName);
 	
 	if(new EmployeeService().addEmployee(employee) ) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?JoinEmployee");
+		response.sendRedirect(request.getContextPath()+"/login/loginForm.jsp?JoinEmployee");
 	} else {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?JoinFail");
+		response.sendRedirect(request.getContextPath()+"/login/loginForm.jsp?JoinFail");
 	}
 	
 %>

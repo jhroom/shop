@@ -28,9 +28,9 @@
 	CustomerService customerService = new CustomerService();
 	
 	if(customerService.addCustomer(customer)) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?JoinCustomer");
+		response.sendRedirect(request.getContextPath()+"/login/loginForm.jsp?JoinCustomer");
 	} else {
-		response.sendRedirect(request.getContextPath()+"/loginFrom.jsp?JoinFail");
+		response.sendRedirect(request.getContextPath()+"/login/loginFrom.jsp?JoinFail");
 	}
 	
 %>

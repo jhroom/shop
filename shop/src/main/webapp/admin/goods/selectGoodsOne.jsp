@@ -5,7 +5,7 @@
 <%
 	//관리자외 접근금지
 	if(!"employee".equals(session.getAttribute("user")) ) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?errorMsg=Invalid Acess");
+		response.sendRedirect(request.getContextPath()+"/login/loginForm.jsp?errorMsg=Invalid Acess");
 		return;
 	}
 
@@ -15,7 +15,7 @@
 	if(request.getParameter("goodsNo") != null ) {
 		goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 	} else {
-		response.sendRedirect(request.getContextPath()+"/admin/adminGoodsList.jsp?errorMsg=Invalid Acess");
+		response.sendRedirect(request.getContextPath()+"/admin/goods/adminGoodsList.jsp?errorMsg=Invalid Acess");
 		return;
 	}
 		System.out.println("goodsNo : " + goodsNo);
@@ -50,8 +50,8 @@
 			}
 		%>
 	</table>
-	<a href="<%=request.getContextPath() %>/admin/updateGoodsForm.jsp?goodsNo=<%=goodsNo%>">상품수정</a>
-	<a href="<%=request.getContextPath() %>/admin/adminGoodsList.jsp">상품관리페이지</a>
+	<a href="<%=request.getContextPath() %>/admin/goods/updateGoodsForm.jsp?goodsNo=<%=goodsNo%>">상품수정</a>
+	<a href="<%=request.getContextPath() %>/admin/goods/adminGoodsList.jsp">상품관리페이지</a>
 	</div>
 
 </body>

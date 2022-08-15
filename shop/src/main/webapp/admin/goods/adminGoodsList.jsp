@@ -6,7 +6,7 @@
 <%
 	//관리자외 접근금지
 	if(!"employee".equals(session.getAttribute("user")) ) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?errorMsg=Invalid Acess");
+		response.sendRedirect(request.getContextPath()+"/login/loginForm.jsp?errorMsg=Invalid Acess");
 		return;
 	}
 
@@ -43,10 +43,10 @@
 <body>
 	<div><!-- 상단메뉴 -->
 		<ul>
-		<li><a href="<%=request.getContextPath() %>/employeeList.jsp">사원관리페이지</a></li>
-		<li><a href="<%=request.getContextPath() %>/admin/adminGoodsList.jsp">상품관리페이지</a></li><!-- 상품목록/등록/수정 -->
+		<li><a href="<%=request.getContextPath() %>/admin/employee/employeeList.jsp">사원관리페이지</a></li>
+		<li><a href="<%=request.getContextPath() %>/admin/goods/adminGoodsList.jsp">상품관리페이지</a></li><!-- 상품목록/등록/수정 -->
 		<li><a href="<%=request.getContextPath() %>/admin/adminOrderList.jsp">주문관리페이지</a></li>
-		<li><a href="<%=request.getContextPath() %>/admin/adminCustomerList.jsp">고객관리페이지</a></li>
+		<li><a href="<%=request.getContextPath() %>/admin/customer/customerList.jsp">고객관리페이지</a></li>
 		<li><a href="<%=request.getContextPath() %>/admin/adminNoticeList.jsp">공지관리페이지</a></li>
 		</ul>
 	</div>
@@ -65,11 +65,11 @@
 		<tbody>
 			<tr>
 				<td><%=list.getGoodsNo() %></td>
-				<td><a href="<%=request.getContextPath() %>/admin/selectGoodsOne.jsp?goodsNo=<%=list.getGoodsNo()%>"><%=list.getGoodsName() %></a></td>
+				<td><a href="<%=request.getContextPath() %>/admin/goods/selectGoodsOne.jsp?goodsNo=<%=list.getGoodsNo()%>"><%=list.getGoodsName() %></a></td>
 				<td><%=list.getGoodsPrice() %></td>
 				<td><%=list.getSoldOut() %></td>
 				<td>
-					<a href="<%=request.getContextPath() %>/admin/updateGoodsForm.jsp?goodsNo=<%=list.getGoodsNo()%>">상품수정</a>
+					<a href="<%=request.getContextPath() %>/admin/goods/updateGoodsForm.jsp?goodsNo=<%=list.getGoodsNo()%>">상품수정</a>
 				</td>
 			</tr>
 		</tbody>
@@ -81,17 +81,17 @@
 	<%
 		if(currentPage > 1) {
 	%>
-		<a href="<%=request.getContextPath() %>/admin/adminGoodsList.jsp?currentPage=<%=currentPage-1 %>">이전</a>
+		<a href="<%=request.getContextPath() %>/admin/goods/adminGoodsList.jsp?currentPage=<%=currentPage-1 %>">이전</a>
 	<%
 		} if(currentPage < lastPage) {
 	%>
-		<a href="<%=request.getContextPath() %>/admin/adminGoodsList.jsp?currentPage=<%=currentPage+1 %>">다음</a>
+		<a href="<%=request.getContextPath() %>/admin/goods/adminGoodsList.jsp?currentPage=<%=currentPage+1 %>">다음</a>
 	<%
 		}
 	%>
 	</div>
 	<div>
-		<a href="<%=request.getContextPath() %>/admin/addGoodsForm.jsp">상품추가</a>
+		<a href="<%=request.getContextPath() %>/admin/goods/addGoodsForm.jsp">상품추가</a>
 	</div>
 </body>
 </html>

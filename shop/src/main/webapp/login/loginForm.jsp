@@ -16,7 +16,7 @@
 	%>
    <div>
    <p><%=session.getAttribute("id") %>님 반갑습니다.</p>
-      <form id="customerForm" method="post" action="<%=request.getContextPath()%>/customerLoginAction.jsp">
+      <form id="customerForm" method="post" action="<%=request.getContextPath()%>/login/customerLoginAction.jsp">
          <fieldset>
             <legend>쇼핑몰 고객 로그인</legend>
             <table>
@@ -36,7 +36,7 @@
    </div>
    
    <div>
-      <form id="employeeForm" method="post" action="<%=request.getContextPath()%>/employeeLoginAction.jsp">
+      <form id="employeeForm" method="post" action="<%=request.getContextPath()%>/login/employeeLoginAction.jsp">
          <fieldset>
             <legend>쇼핑몰 직원 로그인</legend>
             <table>
@@ -54,7 +54,7 @@
          </fieldset>
       </form>
    </div>
-   	<p><a href="index.jsp">인덱스홈</a></p>
+   	<p><a href="<%=request.getContextPath() %>/login/index.jsp">인덱스홈</a></p>
    	<p><a href="logoutShop.jsp">로그아웃</a></p>
    	<p><a href="deleteShop.jsp">회원탈퇴</a></p>
    <div>

@@ -4,8 +4,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
-	String empId = request.getParameter("employeeId");
-	String empPw = request.getParameter("employeePass");
+	String empId = request.getParameter("employeeId");		System.out.println("empId" + empId);
+	String empPw = request.getParameter("employeePass");	System.out.println("empPw" + empPw);
 	
 	Employee employee = new EmployeeService().getEmployee(empId, empPw);
 	
@@ -16,10 +16,10 @@
 		session.setAttribute("user", "employee");
 		session.setAttribute("id", employee.getEmployeeId());
 		session.setAttribute("name", employee.getEmployeeName());
-		response.sendRedirect(request.getContextPath()+ "/index.jsp");
+		response.sendRedirect(request.getContextPath()+ "/login/index.jsp");
 		
 	} else {
 		System.out.println("로그인실패");
-		response.sendRedirect(request.getContextPath()+ "/loginForm.jsp?errorMsg=loginFail");
+		response.sendRedirect(request.getContextPath()+ "/login/loginForm.jsp?errorMsg=loginFail");
 	}
 %>

@@ -9,7 +9,7 @@
 	boolean updateActive  = service.modifyEmployeeActive(empId,empActive);
 	
 	if(updateActive) {
-		response.sendRedirect(request.getContextPath()+"/employeeList.jsp?updateSuccess");
+		response.sendRedirect(request.getContextPath()+"/admin/employee/employeeList.jsp?updateSuccess");
 	} else {
 		
 	}

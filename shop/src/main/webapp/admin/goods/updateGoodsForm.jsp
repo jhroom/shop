@@ -13,7 +13,7 @@
 
 	<h1>상품수정 form</h1>
 	
-	<form action="<%=request.getContextPath() %>/admin/updateGoodsAction.jsp" method="post" enctype="multipart/form-data">
+	<form action="<%=request.getContextPath() %>/admin/goods/updateGoodsAction.jsp" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="goodsNo" value="<%=goodsNo %>">
 		
 		<div>
@@ -29,7 +29,7 @@
 		<button type="submit">상품수정</button>
 	</form>
 	
-	<a href="<%=request.getContextPath() %>/admin/adminGoodsList.jsp">상품관리페이지</a>
+	<a href="<%=request.getContextPath() %>/admin/goods/adminGoodsList.jsp">상품관리페이지</a>
 	
 </body>
 </html>

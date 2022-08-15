@@ -51,7 +51,7 @@
 				for(Map<String, Object> m : list) {
 			%>
 				<td>
-					<div><a href="<%=request.getContextPath()%>/customerGoodsOne.jsp?goodsNo=<%=m.get("goodsNo")%>">
+					<div><a href="<%=request.getContextPath()%>/customer/customerGoodsOne.jsp?goodsNo=<%=m.get("goodsNo")%>">
 							<img src='<%=request.getContextPath()%>/upload/<%=m.get("fileName")%>' width="100px"></a></div>
 					<div><%=m.get("goodsName") %></div>
 					<div><%=m.get("goodsPrice") %></div>

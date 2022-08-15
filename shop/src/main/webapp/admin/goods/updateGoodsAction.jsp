@@ -36,7 +36,7 @@
 		if( file.exists()) {
 			file.delete();
 		}
-		response.sendRedirect(request.getContextPath() +"/admin/updateGoodsForm.jsp?goodsNo="+goodsNo+"&InvalidFile");
+		response.sendRedirect(request.getContextPath() +"/admin/goods/updateGoodsForm.jsp?goodsNo="+goodsNo+"&InvalidFile");
 		return;
 	}
 	
@@ -61,9 +61,9 @@
 	boolean result = new GoodsService().modifyGoods(goods, goodsImg);
 	
 	if(result){
-		response.sendRedirect(request.getContextPath()+"/admin/selectGoodsOne.jsp?goodsNo="+goodsNo+"&addSuccess");
+		response.sendRedirect(request.getContextPath()+"/admin/goods/selectGoodsOne.jsp?goodsNo="+goodsNo+"&addSuccess");
 	} else {
-		response.sendRedirect(request.getContextPath()+"/adimin/selectGoodsOne.jsp?goodsNo="+goodsNo+"&addFail");
+		response.sendRedirect(request.getContextPath()+"/adimin/goods/selectGoodsOne.jsp?goodsNo="+goodsNo+"&addFail");
 	}
 	
 %>

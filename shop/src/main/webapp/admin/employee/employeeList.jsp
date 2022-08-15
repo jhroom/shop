@@ -6,7 +6,7 @@
 <%
 	//관리자외 접근금지
 	if(!"employee".equals(session.getAttribute("user")) ) {
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?errorMsg=Invalid Acess");
+		response.sendRedirect(request.getContextPath()+"/login/loginForm.jsp?errorMsg=Invalid Acess");
 		return;
 	}
 
@@ -40,10 +40,10 @@
 	<div>
 	<div><!-- 상단메뉴 -->
 		<ul>
-		<li><a href="<%=request.getContextPath() %>/employeeList.jsp">사원관리페이지</a></li>
-		<li><a href="<%=request.getContextPath() %>/admin/adminGoodsList.jsp">상품관리페이지</a></li><!-- 상품목록/등록/수정 -->
+		<li><a href="<%=request.getContextPath() %>/admin/employee/employeeList.jsp">사원관리페이지</a></li>
+		<li><a href="<%=request.getContextPath() %>/admin/goods/adminGoodsList.jsp">상품관리페이지</a></li><!-- 상품목록/등록/수정 -->
 		<li><a href="<%=request.getContextPath() %>/admin/adminOrderList.jsp">주문관리페이지</a></li>
-		<li><a href="<%=request.getContextPath() %>/admin/adminCustomerList.jsp">고객관리페이지</a></li>
+		<li><a href="<%=request.getContextPath() %>/admin/customer/customerList.jsp">고객관리페이지</a></li>
 		<li><a href="<%=request.getContextPath() %>/admin/adminNoticeList.jsp">공지관리페이지</a></li>
 		</ul>
 	</div>
@@ -67,7 +67,7 @@
 			<td><%=emp.getCreateDate() %></td>
 			<td><%=emp.getUpdateDate() %> </td>
 			<td>
-			<form action="<%=request.getContextPath() %>/updateActiveAction.jsp" method="post">
+			<form action="<%=request.getContextPath() %>/admin/employee/updateActiveAction.jsp" method="post">
 			<select name="active">
 			<%
 				if(emp.getActive().equals("N")) {
@@ -97,11 +97,11 @@
 	<%
 		if(currentPage > 1) {
 	%>
-			<a href="./employeeList.jsp?currentPage=<%=currentPage-1 %>">이전</a>
+			<a href="<%=request.getContextPath() %>/admin/employee/employeeList.jsp?currentPage=<%=currentPage-1 %>">이전</a>
 	<%
 		} if(currentPage < lastPage) {
 	%>
-			<a href="./employeeList.jsp?currentPage=<%=currentPage+1 %>">다음</a>
+			<a href="<%=request.getContextPath() %>/admin/employee/employeeList.jsp?currentPage=<%=currentPage+1 %>">다음</a>
 	<%
 		}
 	%>

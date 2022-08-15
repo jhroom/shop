@@ -16,6 +16,7 @@
 	%>
 	<h3>고객 회원가입 폼</h3>
 	<!-- id check form -->
+	
 		<div>
 			아이디중복검사
 			<input type="text" name="idck" id="idck">
@@ -23,18 +24,12 @@
 		</div>
 	
 	<!-- 고객가입 form -->
-	<%
-		String ckeckedId = "";
-		if( request.getParameter("checkedId") != null) {
-			ckeckedId = request.getParameter("checkedId");
-		}
-	%>
 	
-	<form action="<%=request.getContextPath() %>/addCustomerAction.jsp" method="post" id="form">
+	<form action="<%=request.getContextPath() %>/login/addCustomerAction.jsp" method="post" id="form">
 			
 		
 			<div>customer id
-			<input type="text" name="customerId" id="id" readonly="readonly" value="<%=ckeckedId%>" ></div>
+			<input type="text" name="customerId" id="id" readonly="readonly"></div>
 			
 			<div>customer pass
 			<input type="password" name="customerPass" id="pass"></div>

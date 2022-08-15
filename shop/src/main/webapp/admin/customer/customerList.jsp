@@ -30,10 +30,10 @@
 <body>
 	<div><!-- 상단메뉴 -->
 		<ul>
-		<li><a href="<%=request.getContextPath() %>/employeeList.jsp">사원관리페이지</a></li>
-		<li><a href="<%=request.getContextPath() %>/admin/adminGoodsList.jsp">상품관리페이지</a></li><!-- 상품목록/등록/수정 -->
+		<li><a href="<%=request.getContextPath() %>/admin/employee/employeeList.jsp">사원관리페이지</a></li>
+		<li><a href="<%=request.getContextPath() %>/admin/goods/adminGoodsList.jsp">상품관리페이지</a></li><!-- 상품목록/등록/수정 -->
 		<li><a href="<%=request.getContextPath() %>/admin/adminOrderList.jsp">주문관리페이지</a></li>
-		<li><a href="<%=request.getContextPath() %>/admin/adminCustomerList.jsp">고객관리페이지</a></li>
+		<li><a href="<%=request.getContextPath() %>/admin/customer/customerList.jsp">고객관리페이지</a></li>
 		<li><a href="<%=request.getContextPath() %>/admin/adminNoticeList.jsp">공지관리페이지</a></li>
 		</ul>
 	</div>
@@ -56,13 +56,13 @@
 		%>
 			<tr>
 				<td><%=list.getCustomerId() %></td>
-				<td><%=list.getCustomerPass() %><a href="<%=request.getContextPath() %>/customer/updatePassForm.jsp?id=<%=list.getCustomerId()%>">변경하기</a></td>
+				<td><%=list.getCustomerPass() %><a href="<%=request.getContextPath() %>/admin/customer/updatePassForm.jsp?id=<%=list.getCustomerId()%>">변경하기</a></td>
 				<td><%=list.getCustomerName() %></td>
 				<td><%=list.getCustomerAdress() %></td>
 				<td><%=list.getCustomerTel() %></td>
 				<td><%=list.getUpdateDate() %></td>
 				<td><%=list.getCreateDate() %></td>
-				<td><a href="<%=request.getContextPath()%>/customer/deleteAccountForm.jsp?id=<%=list.getCustomerId()%>">탈퇴</a></td>
+				<td><a href="<%=request.getContextPath()%>/admin/customer/deleteAccountForm.jsp?id=<%=list.getCustomerId()%>">탈퇴</a></td>
 			</tr>
 		<%
 			}

@@ -8,12 +8,12 @@
 <body>
 <%
 	if(session.getAttribute("user")==null){
-		response.sendRedirect(request.getContextPath() +  "/loginForm.jsp");
+		response.sendRedirect(request.getContextPath() +  "/login/loginForm.jsp");
 		return;
 	}
 	else {
 		session.invalidate();
-		response.sendRedirect(request.getContextPath() +  "/loginForm.jsp");
+		response.sendRedirect(request.getContextPath() +  "/login/loginForm.jsp");
 	}
 %>
 

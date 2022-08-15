@@ -12,12 +12,12 @@
    <br>
    name : <%=session.getAttribute("name")%> <!-- 로그인 이름 -->
    <div>
-   <p><a href="loginForm.jsp">로그인페이지</a></p>
+   <p><a href="<%=request.getContextPath() %>/login/loginForm.jsp">로그인페이지</a></p>
    
    	<%
    		if("employee".equals(session.getAttribute("user"))){
    	%>
-   			<a href="adminIndex.jsp">관리자 페이지</a>
+   			<a href="<%=request.getContextPath() %>/admin/adminIndex.jsp">관리자 페이지</a>
    	<%
    		}
    	%>
