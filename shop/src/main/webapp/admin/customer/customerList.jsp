@@ -55,7 +55,7 @@
 			for(Customer list : customerList) {
 		%>
 			<tr>
-				<td><%=list.getCustomerId() %></td>
+				<td><a href="<%=request.getContextPath()%>/admin/customer/orderListById.jsp?id=<%=list.getCustomerId()%>"><%=list.getCustomerId() %></a></td>
 				<td><%=list.getCustomerPass() %><a href="<%=request.getContextPath() %>/admin/customer/updatePassForm.jsp?id=<%=list.getCustomerId()%>">변경하기</a></td>
 				<td><%=list.getCustomerName() %></td>
 				<td><%=list.getCustomerAdress() %></td>
