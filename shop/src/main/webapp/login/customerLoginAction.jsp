@@ -7,20 +7,20 @@
 	String customerId = request.getParameter("customerId");
 	String customerPass = request.getParameter("customerPass");
 	
-	Customer customer = new Customer();
-	customer.setCustomerId(customerId);
-	customer.setCustomerPass(customerPass);
+	Customer paramcustomer = new Customer();
+	paramcustomer.setCustomerId(customerId);
+	paramcustomer.setCustomerPass(customerPass);
 	
 	CustomerService customerService = new CustomerService();
-	Customer customer2 = new Customer();
+	Customer customer = new Customer();
 	
-	if( customerService.getCustomer(customer).getCustomerId() != null ) {
+	if( customerService.getCustomer(paramcustomer).getCustomerId() != null ) {
 		System.out.println("세션 적용전까지 성공");
-		customer2 = customerService.getCustomer(customer);
+		customer = customerService.getCustomer(paramcustomer);
 		
 		session.setAttribute("user", "customer");
-		session.setAttribute("id", customer2.getCustomerId());
-		session.setAttribute("name", customer2.getCustomerName());
+		session.setAttribute("id", customer.getCustomerId());
+		session.setAttribute("name", customer.getCustomerName());
 		
 		response.sendRedirect(request.getContextPath()+"/login/index.jsp");
 	} else {

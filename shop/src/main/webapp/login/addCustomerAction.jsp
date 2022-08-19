@@ -14,7 +14,10 @@
 	String customerId = request.getParameter("customerId");
 	String customerPass = request.getParameter("customerPass");
 	String customerName = request.getParameter("customerName");
-	String customerAdress = request.getParameter("customerAdress");
+	String addr = request.getParameter("customerAdress");
+	String addrDetail = request.getParameter("customerAdressDetail");
+	//주소와 상세주소 결합
+	String customerAdress = addr + " " +  addrDetail;
 	String customerTel = request.getParameter("customerTel");
 	
 	//고객정보 담을 객체

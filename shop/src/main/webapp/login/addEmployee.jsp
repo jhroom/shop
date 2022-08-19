@@ -46,8 +46,8 @@
 	// 회원가입 빈칸검사
 	$('#idckbtn').click(function(){
 		
-		if( $('#idck').val().length < 4 ) {
-			alert('아이디를 4글자 이상 입력하시오');
+		if( $('#idck').val().length < 4 || $('#idck').val() == 'null') {
+			alert('아이디를 4글자 이상 입력하시거나 사용 할 수 없는 아이디입니다.');
 			$('#idck').focus();
 			return;
 		} else {
