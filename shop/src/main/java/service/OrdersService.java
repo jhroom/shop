@@ -7,9 +7,35 @@ import java.util.List;
 import java.util.Map;
 
 import repository.OrdersDao;
+import vo.Orders;
 
 public class OrdersService {
 	private OrdersDao ordersDao;
+	
+	public boolean addOrder(Orders order) {		//오더 성공하면 카트에 담긴거 삭제 트랜잭션 구현해야함
+		boolean result = false;
+		Connection conn = null;
+		int temp = 0;
+		try {
+			conn = new DbUtil().getConnection();
+			conn.setAutoCommit(false);
+			this.ordersDao = new OrdersDao();
+			temp = ordersDao.insertOrders(order, conn);
+			if(temp != 1) {
+				throw new Exception();
+			}
+			conn.commit();
+			result = true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try { conn.rollback(); } catch (SQLException e1) { e1.printStackTrace(); }
+		} finally {
+			try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
+		
+		return result;
+	}
 	
 	//관리자용 고객한명의 주문리스트 개수 카운트
 	public int selectCountOrderListByCustomer(String customerId) {

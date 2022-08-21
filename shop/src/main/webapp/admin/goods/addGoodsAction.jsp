@@ -52,9 +52,9 @@
 	boolean result = new GoodsService().addGoods(goods, goodsImg);
 	
 	if(result){
-		response.sendRedirect(request.getContextPath()+"/admin/adminGoodsList.jsp?addSuccess");
+		response.sendRedirect(request.getContextPath()+"/admin/goods/adminGoodsList.jsp?addSuccess");
 	} else {
-		response.sendRedirect(request.getContextPath()+"/adimin/adminGoodsList.jsp?addFail");
+		response.sendRedirect(request.getContextPath()+"/adimin/goods/adminGoodsList.jsp?addFail");
 	}
 	
 %>

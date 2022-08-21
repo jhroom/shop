@@ -2,13 +2,23 @@
 <%@page import="java.util.List"%>
 <%@page import="service.CartService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%
+	System.out.println("\r\ncartList 시작");
+
+	String customerId = request.getParameter("customerId"); System.out.println("customerId : " + customerId);
+	int goodsNo = Integer.parseInt(request.getParameter("goodsNo")); System.out.println("goodsNo : " + goodsNo);
 	
 	CartService cartService = new CartService();
-
+		System.out.println("getAttributeId : " + (String)session.getAttribute("id"));
 	List<Map<String,Object>> list = cartService.getCartById((String)session.getAttribute("id"));
+		for(Map<String,Object> m : list){
+			
+		}
 	session.setAttribute("orderList", list);
 	// session.removeAttribute(); //나중에 이세션은 지우기
+	int price = 0;
+	
 	
 %>
 <!DOCTYPE html>
@@ -33,9 +43,11 @@
 			<tbody>
 			<%
 				for(Map<String,Object> m : list){
+					price += (int)m.get("goodsPrice")*(int)m.get("cartQuantity");
 					
 			%>
 				<tr>
+				
 					<td><img src="<%=request.getContextPath()%>/upload/<%=m.get("fileName")%>" width="100px"></td>
 					<td><%=m.get("goodsName") %></td>
 					<td><%=m.get("goodsPrice") %></td>
@@ -53,8 +65,11 @@
 		</table>
 		<div><%=list.get(0).get("address") %></div>
 		
-		<form action="<%=request.getContextPath()%>/cartOrder.jsp?" method="post">
-			<button type="button" id="btn">주문하기</button>
+		<form action="<%=request.getContextPath()%>/customer/cartOrder.jsp?" method="post">
+			Address<input type="text" name="addr">
+			Address Detail<input type="text" name="addrDetail">
+			결제금액<input type="text" name="orderPrice" value="<%=price %>" readonly>
+			<button type="submit" id="btn">주문하기</button>
 		</form>
 		장바구니 상품구매할거 마다 수량이나 주소 바꿀수 있게?
 		주문후 재고 상태 바뀌면 주문 못하게?

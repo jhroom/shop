@@ -12,6 +12,30 @@ import java.util.Map;
 import vo.Orders;
 
 public class OrdersDao {
+	
+	public int insertOrders(Orders orders, Connection conn) throws SQLException {
+		int result = 0;
+		String sql = "INSERT INTO orders (goods_no,customer_id,order_quantity,order_state"
+				+ ",order_price, order_addr, update_date,create_date)\r\n"
+				+ " VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, orders.getGoodsNo());
+			stmt.setString(2, orders.getCustomerId());
+			stmt.setInt(3, orders.getOrderQuantity());
+			stmt.setString(4, orders.getOrderState());
+			stmt.setInt(5, orders.getOrderPrice());
+			stmt.setString(6, orders.getOrderAdress());
+			result = stmt.executeUpdate();
+			
+		} finally {
+			if(stmt != null) { stmt.close(); }
+		}
+		
+		return result;
+	}
+	
 	//주문 상세 보기
 	public Map<String,Object> selectOrdersOne(int ordersNo, Connection conn) throws SQLException {
 		Map<String, Object> map = null;
@@ -129,5 +153,6 @@ public class OrdersDao {
 		}
 		return count;
 	}
+	
 
 }

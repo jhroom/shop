@@ -23,7 +23,10 @@
 		<div>
 		상품이름<input type="text" name="goodsName">
 		상품가격<input type="text" name="goodsPrice">
-		수량상태<input type="text" name="soldOut">
+		수량상태<select name="soldOut">
+			<option value="Y">재고있음</option>
+			<option value="N">재고없음</option>
+		</select>
 		</div>
 		
 		<button type="submit">상품수정</button>

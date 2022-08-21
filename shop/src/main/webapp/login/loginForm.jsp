@@ -57,6 +57,7 @@
    	<p><a href="<%=request.getContextPath() %>/login/index.jsp">인덱스홈</a></p>
    	<p><a href="logoutShop.jsp">로그아웃</a></p>
    	<p><a href="deleteShop.jsp">회원탈퇴</a></p>
+   	<p><a href="<%=request.getContextPath() %>/customer/customerGoodsList.jsp">상품리스트</a></p>
    <div>
    
    </div>

@@ -83,7 +83,6 @@ public class GoodsDao {
 		try {
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, goodsNO);
-			System.out.print("stmt : " + stmt);
 			rest = stmt.executeQuery();
 			if(rest.next()) {
 				map = new HashMap<>();

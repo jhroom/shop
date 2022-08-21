@@ -4,7 +4,7 @@ public class Cart {
 	
 	private String customerId;
 	private int goodsNo;
-	private int cartQuanti;
+	private int cartQuantity;
 	private String updateDate;
 	private String createDate;
 	
@@ -20,11 +20,11 @@ public class Cart {
 	public void setGoodsNo(int goodsNo) {
 		this.goodsNo = goodsNo;
 	}
-	public int getCartQuanti() {
-		return cartQuanti;
+	public int getCartQuantity() {
+		return cartQuantity;
 	}
-	public void setCartQuanti(int cartQuanti) {
-		this.cartQuanti = cartQuanti;
+	public void setCartQuantity(int cartQuantity) {
+		this.cartQuantity = cartQuantity;
 	}
 	public String getUpdateDate() {
 		return updateDate;
@@ -41,7 +41,7 @@ public class Cart {
 	
 	@Override
 	public String toString() {
-		return "Cart [customerId=" + customerId + ", goodsNo=" + goodsNo + ", cartQuanti=" + cartQuanti
+		return "Cart [customerId=" + customerId + ", goodsNo=" + goodsNo + ", cartQuantity=" + cartQuantity
 				+ ", updateDate=" + updateDate + ", createDate=" + createDate + "]";
 	}
 

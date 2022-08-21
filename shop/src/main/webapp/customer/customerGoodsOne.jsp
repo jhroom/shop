@@ -2,7 +2,12 @@
 <%@page import="service.GoodsService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+	if(request.getParameter("goodsNo") == null){
+		response.sendRedirect(request.getContextPath()+"/customer/customerGoodsList.jsp");
+		return;
+	}
 	int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+	
 	GoodsService goodsService = new GoodsService();
 	Map<String,Object> map = goodsService.getGoodsAndImg(goodsNo);
 %>
@@ -35,19 +40,26 @@
 			</tbody>
 		</table>
 	</div>
-	<form action="<%=request.getContextPath() %>/addCart.jsp" id="form">
+	<form action="<%=request.getContextPath() %>/customer/addCart.jsp" id="form">
 		<input type="hidden" name="customerId" id="id" value="<%=session.getAttribute("id")%>">
 		<input type="hidden" name="goodsNo" id="no" value="<%=goodsNo%>">
-		<select>
+		<select name="cartQuantity">
 			<option value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
 		</select>
-		<button type="button" id="btn" >구매하기</button>
+		<button type="button" id="btn" >장바구니담기</button>
 	</form>
 
 	수량선택
 	카트담기구현해야함
+	
+	<form action="<%=request.getContextPath() %>/customer/cartList.jsp">
+		<input type="hidden" name="customerId" id="id" value="<%=session.getAttribute("id")%>">
+		<input type="hidden" name="goodsNo" id="no" value="<%=goodsNo%>">
+		<button type="submit" id="btn" >장바구니가기</button>
+	</form>
+	
 </body>
 <script>
 	$('#btn').click(function(){
