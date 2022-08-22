@@ -12,13 +12,16 @@
 	CartService cartService = new CartService();
 		System.out.println("getAttributeId : " + (String)session.getAttribute("id"));
 	List<Map<String,Object>> list = cartService.getCartById((String)session.getAttribute("id"));
-		for(Map<String,Object> m : list){
-			
-		}
+	System.out.println("list : " + list.size());
+	
+	//세션이 없거나 고객이 아닌사람이 장바구니 간다면 빈장바구니로 가기
+	if( list.size() == 0 || (String)session.getAttribute("id") == null){
+		response.sendRedirect(request.getContextPath()+"/customer/emptyCart.jsp");
+		return;
+	}
 	session.setAttribute("orderList", list);
 	// session.removeAttribute(); //나중에 이세션은 지우기
 	int price = 0;
-	
 	
 %>
 <!DOCTYPE html>

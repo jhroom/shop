@@ -10,8 +10,25 @@ import java.util.List;
 import java.util.Map;
 
 import vo.Cart;
+import vo.Orders;
 
 public class CartDao {
+	
+	//insert Orders 하면 주문한 cart Delete
+	public int deleteCartByOrders(Orders orders, Connection conn) throws SQLException {
+		int result = 0;
+		String sql = "DELETE FROM cart WHERE customer_id = ?";
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, orders.getCustomerId());
+			result = stmt.executeUpdate();
+		} finally {
+			if(stmt != null) {stmt.close();}
+		}
+		
+		return result;
+	}
 	
 	public List<Map<String,Object>> selectCartById(String customerId, Connection conn) throws SQLException {
 		List<Map<String,Object>> list = new ArrayList<>();
@@ -27,6 +44,7 @@ public class CartDao {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, customerId);
 			rest = stmt.executeQuery();
+			//System.out.println(rest.getBoolean(0));
 			while(rest.next()) {
 				map = new HashMap<String,Object>();
 				map.put("goodsNo", rest.getInt("goods_no"));
@@ -38,6 +56,12 @@ public class CartDao {
 				map.put("address", rest.getString("customer_address"));
 				list.add(map);
 			}
+		 /*
+			 * else { map = new HashMap<String,Object>(); map.put("goodsNo", "");
+			 * map.put("goodsName", ""); map.put("goodsPrice", 0); map.put("cartQuantity",
+			 * 0); map.put("soldOut", ""); map.put("fileName", ""); map.put("address", "");
+			 * list.add(map); }
+			 */
 		} finally {
 			if(rest != null) {rest.close();}
 			if(stmt != null) {stmt.close();}

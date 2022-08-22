@@ -35,8 +35,10 @@
 		
 		if( ordersService.addOrder(order)){
 			System.out.println("오더성공");
+			session.removeAttribute("orderList");
 		} else {
 			System.out.println("오더실패");
+			session.removeAttribute("orderList");
 		}
 		
 	}

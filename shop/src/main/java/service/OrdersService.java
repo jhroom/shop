@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import repository.CartDao;
 import repository.OrdersDao;
 import vo.Orders;
 
@@ -16,16 +16,25 @@ public class OrdersService {
 		boolean result = false;
 		Connection conn = null;
 		int temp = 0;
+		
 		try {
 			conn = new DbUtil().getConnection();
 			conn.setAutoCommit(false);
 			this.ordersDao = new OrdersDao();
 			temp = ordersDao.insertOrders(order, conn);
-			if(temp != 1) {
-				throw new Exception();
+			
+			if(temp == 1) {
+				System.out.println("orders 주문성공");
+				CartDao cartDao = new CartDao();
+				temp = cartDao.deleteCartByOrders(order, conn);
+					if( temp != 1) {
+						System.out.println("cart 삭제실패");
+						throw new Exception();
+					}
+				System.out.println("cart 삭제성공");
+				conn.commit();
+				result = true;
 			}
-			conn.commit();
-			result = true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
