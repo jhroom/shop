@@ -76,8 +76,18 @@ public class OrdersDao {
 	}
 	
 	//전체 주문 목록(관리자) 5-1
-	public List<Orders> selectOrdersList(int beginRow, int rowPerPage, Connection conn) {
+	public List<Orders> selectOrdersList(int beginRow, int rowPerPage, Connection conn) throws SQLException {
 		List<Orders> list = new ArrayList<>();
+		Orders orders = null;
+		String sql ="SELECT\r\n"
+				+ "		o.order_no orderNo ,o.goods_no goodsNo ,o.customer_id customerId ,g.goods_name goodsName "
+				+ "		, o.order_price orderPrice ,o.order_quantity orderQuantity ,o.order_addr orderAddress "
+				+ "		, o.order_state orderState ,o.update_date updateDate ,o.create_date createDate "
+				+ "		FROM orders o INNER JOIN goods g"
+				+ "		USING(goods_no) "
+				+ "		ORDER BY o.create_date DESC"
+				+ "		LIMIT ?,?";
+		
 		/*
 			SELECT
 				o.order_no orderNo ,o.customer_id customerId ,g.goods_name goodsName
@@ -87,21 +97,65 @@ public class OrdersDao {
 			ORDER BY o.create_date DESC
 			LIMIT ?,?
 		*/
-		
+		PreparedStatement stmt = null;
+		ResultSet rest = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, beginRow);
+			stmt.setInt(2, rowPerPage);
+			rest = stmt.executeQuery();
+			while(rest.next()) {
+				orders = new Orders();
+				orders.setOrderNo(rest.getInt("orderNo"));
+				orders.setGoodsNo(rest.getInt("goodsNo"));
+				orders.setCustomerId(rest.getString("customerId"));
+				orders.setOrderQuantity(rest.getInt("orderQuantity"));
+				orders.setOrderPrice(rest.getInt("orderPrice"));
+				orders.setOrderAdress(rest.getString("orderAddress"));
+				orders.setOrderState(rest.getString("orderState"));
+				orders.setUpdateDate(rest.getString("updateDate"));
+				orders.setCreateDate(rest.getString("createDate"));
+				list.add(orders);
+			}
+		} finally {
+			if(rest != null) { rest.close(); }
+			if(stmt != null) { stmt.close(); }
+		}
 		return list;
 	}
+	
+	//고객 전체주문리스트 count
+	public int selectCountOrders(Connection conn) throws SQLException {
+		int total = 0;
+		String sql = "SELECT COUNT(*) cnt FROM orders";
+		PreparedStatement stmt = null;
+		ResultSet rest = null;
+		try {
+			stmt = conn.prepareStatement(sql);
+			rest = stmt.executeQuery();
+			if(rest.next()) {
+				total = rest.getInt("cnt");
+			}
+		} finally {
+			if(rest != null) { rest.close(); }
+			if(stmt != null) { stmt.close(); }
+		}
+		
+		return total;
+	}
+	
 	//고객 한명의 주문 목록(관리자,고객) 2-1
 	public List<Map<String,Object>> selectOrdersListByCustomer(String customerId, int beginRow, int rowPerPage, Connection conn) throws SQLException {
 		List<Map<String,Object>>  list = new ArrayList<>();
 		String sql = "SELECT\r\n"
-				+ "			o.order_no orderNo, o.goods_no goodsNo, o.customer_id customerId, o.order_quantity orderQuantity\r\n"
-				+ "			, o.order_price orderPrice, o.order_addr orderAddr, o.order_state orderState\r\n"
-				+ "			, o.update_date updateDate, o.create_date createDate\r\n"
-				+ "			, g.goods_name goodsName, g.goods_price goodsPrice, g.sold_out soldOut\r\n"
-				+ "		FROM orders o INNER JOIN goods g\r\n"
-				+ "		USING(goods_no)\r\n"
-				+ "		WHERE customer_id = ?\r\n"
-				+ "		ORDER BY o.create_date DESC\r\n"
+				+ "			o.order_no orderNo, o.goods_no goodsNo, o.customer_id customerId, o.order_quantity orderQuantity"
+				+ "			, o.order_price orderPrice, o.order_addr orderAddr, o.order_state orderState"
+				+ "			, o.update_date updateDate, o.create_date createDate"
+				+ "			, g.goods_name goodsName, g.goods_price goodsPrice, g.sold_out soldOut"
+				+ "		FROM orders o INNER JOIN goods g"
+				+ "		USING(goods_no)"
+				+ "		WHERE customer_id = ?"
+				+ "		ORDER BY o.create_date DESC"
 				+ "		LIMIT ?,?";
 		PreparedStatement stmt = null;
 		ResultSet rest = null;

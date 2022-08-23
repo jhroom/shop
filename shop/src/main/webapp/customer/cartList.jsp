@@ -6,8 +6,8 @@
 <%
 	System.out.println("\r\ncartList 시작");
 
-	String customerId = request.getParameter("customerId"); System.out.println("customerId : " + customerId);
-	int goodsNo = Integer.parseInt(request.getParameter("goodsNo")); System.out.println("goodsNo : " + goodsNo);
+	//String customerId = request.getParameter("customerId"); System.out.println("customerId : " + customerId);
+	//int goodsNo = Integer.parseInt(request.getParameter("goodsNo")); System.out.println("goodsNo : " + goodsNo);
 	
 	CartService cartService = new CartService();
 		System.out.println("getAttributeId : " + (String)session.getAttribute("id"));

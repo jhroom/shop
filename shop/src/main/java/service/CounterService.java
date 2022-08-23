@@ -17,13 +17,13 @@ public class CounterService {
     	  conn = new DbUtil().getConnection();
     	  conn.setAutoCommit(false);
     	  
-	      if(counterDao.selectCounterToday(conn) == null) { // 오늘날짜 카운터가 없으면 1 입력
+	      if(counterDao.selectCounterToday(conn) == null) { // 오늘날짜 접속자가 있었는지
 	    	  System.out.println("counter insert 하기");
-	    	  counterDao.insertCounter(conn);
+	    	  int insert = counterDao.insertCounter(conn); System.out.println("insert rlt : "+insert);
 	      }
 	      else { 											// 오늘날짜의 카운터가 있으면 +1 업데이터
 	    	  System.out.println("counter +1 하기");
-	        temp = counterDao.updateCounter(conn);
+	        temp = counterDao.updateCounter(conn);		System.out.println("update rlt : "+temp);
 		        if(temp != 1) {
 		        	throw new Exception();
 		        }
@@ -64,6 +64,7 @@ public class CounterService {
 		try {
 			conn = new DbUtil().getConnection();
 			todayCount = counterDao.selectTodayCount(conn);
+			System.out.println("todayCount : " + todayCount);
 			
 		} catch (Exception e) {
 		} finally {

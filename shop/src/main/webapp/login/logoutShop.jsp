@@ -12,6 +12,7 @@
 		return;
 	}
 	else {
+		System.out.println("세션 해제");
 		session.invalidate();
 		response.sendRedirect(request.getContextPath() +  "/login/loginForm.jsp");
 	}

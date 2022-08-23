@@ -32,6 +32,7 @@ public class CounterDao {
 	   try {
 	    	  stmt = conn.prepareStatement(sql);
 	    	  result = stmt.executeUpdate();
+	    	  System.out.println("insert result "+result);
 	      } finally {
 			  if(stmt != null) {stmt.close();}
 	      }

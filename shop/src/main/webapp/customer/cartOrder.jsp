@@ -36,9 +36,11 @@
 		if( ordersService.addOrder(order)){
 			System.out.println("오더성공");
 			session.removeAttribute("orderList");
+			response.sendRedirect(request.getContextPath()+"/customer/cartList.jsp");
 		} else {
 			System.out.println("오더실패");
 			session.removeAttribute("orderList");
+			response.sendRedirect(request.getContextPath()+"/customer/cartList.jsp/orderFail");
 		}
 		
 	}

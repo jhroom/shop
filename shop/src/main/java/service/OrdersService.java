@@ -12,6 +12,47 @@ import vo.Orders;
 public class OrdersService {
 	private OrdersDao ordersDao;
 	
+	//관리자용 고객 전체 오더 리스트
+	
+	public List<Orders> getOrdersList(int currentPage, int rowPerPage){
+		List<Orders> list = new ArrayList<Orders>();
+		Connection conn = null;
+		int beginRow = (currentPage-1)*rowPerPage;
+		
+		try {
+			conn = new DbUtil().getConnection();
+			this.ordersDao = new OrdersDao();
+			list = ordersDao.selectOrdersList(beginRow , rowPerPage, conn);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
+		return list;
+	}
+	//관리자용  고객 전체 오더리스트 개수 구하기
+	public int lastPage() {
+		int lastPage = 0;
+		Connection conn = null;
+		this.ordersDao = new OrdersDao();
+		
+		try {
+			conn = new DbUtil().getConnection();
+			lastPage = ordersDao.selectCountOrders(conn);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
+		
+		return lastPage;
+	}
+	
+	//cart에서 주문하는 order메서드
 	public boolean addOrder(Orders order) {		//오더 성공하면 카트에 담긴거 삭제 트랜잭션 구현해야함
 		boolean result = false;
 		Connection conn = null;
@@ -47,7 +88,7 @@ public class OrdersService {
 	}
 	
 	//관리자용 고객한명의 주문리스트 개수 카운트
-	public int selectCountOrderListByCustomer(String customerId) {
+	public int getCountOrderListByCustomer(String customerId) {
 		int count = 0;
 		Connection conn = null;
 		

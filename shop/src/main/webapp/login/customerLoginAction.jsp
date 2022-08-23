@@ -15,12 +15,13 @@
 	Customer customer = new Customer();
 	
 	if( customerService.getCustomer(paramcustomer).getCustomerId() != null ) {
-		System.out.println("세션 적용전까지 성공");
+		
 		customer = customerService.getCustomer(paramcustomer);
 		
 		session.setAttribute("user", "customer");
 		session.setAttribute("id", customer.getCustomerId());
 		session.setAttribute("name", customer.getCustomerName());
+		System.out.println("customer세션 적용 성공");
 		
 		response.sendRedirect(request.getContextPath()+"/login/index.jsp");
 	} else {
