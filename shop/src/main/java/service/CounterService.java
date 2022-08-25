@@ -27,8 +27,8 @@ public class CounterService {
 		        if(temp != 1) {
 		        	throw new Exception();
 		        }
-		    conn.commit();
 	      }
+	      conn.commit();
 	      
       } catch (Exception e) {
     	  e.printStackTrace();

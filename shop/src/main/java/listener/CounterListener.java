@@ -18,7 +18,7 @@ public class CounterListener implements HttpSessionListener {
 
 
     public void sessionCreated(HttpSessionEvent se)  {
-    	System.out.println("CounterListener sessionCreated 시작");
+    	System.out.println("\r\nCounterListener sessionCreated 시작");
     	counterService = new CounterService();
         counterService.count();
         
@@ -28,7 +28,7 @@ public class CounterListener implements HttpSessionListener {
     }
 
     public void sessionDestroyed(HttpSessionEvent se)  { 
-    	System.out.println("CounterListener sessionDestroyed 시작");
+    	System.out.println("\r\nCounterListener sessionDestroyed 시작");
     	// 세션이 소멸되면 application attribute에 현재접속카운터를 1씩 감소
     	se.getSession().getServletContext().setAttribute("currentCounter",
     			(Integer)(se.getSession().getServletContext().getAttribute("currentCounter"))-1 );

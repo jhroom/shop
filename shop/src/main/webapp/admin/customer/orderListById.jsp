@@ -16,7 +16,7 @@
 	
 	list = ordersService.getCustomerOrderList(customerId, currentPage, rowPerPage);
 	
-	int lastPage = ordersService.selectCountOrderListByCustomer(customerId);
+	int lastPage = ordersService.getCountOrderListByCustomer(customerId);
 		System.out.println("total : " + lastPage);
 	lastPage =(int) Math.ceil((double)lastPage/rowPerPage);
 		System.out.println("lastPage : " + lastPage);

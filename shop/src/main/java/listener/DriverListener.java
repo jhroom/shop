@@ -10,7 +10,6 @@ public class DriverListener implements ServletContextListener {
 
     public void contextDestroyed(ServletContextEvent sce)  {
     	System.out.println("driver Listener 종료");
-         // TODO Auto-generated method stub
     }
 
     public void contextInitialized(ServletContextEvent sce)  {
