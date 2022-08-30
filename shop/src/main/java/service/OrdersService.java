@@ -14,8 +14,8 @@ public class OrdersService {
 	
 	//관리자용 고객 전체 오더 리스트
 	
-	public List<Orders> getOrdersList(int currentPage, int rowPerPage){
-		List<Orders> list = new ArrayList<Orders>();
+	public List<Map<String, Object>> getOrdersList(int currentPage, int rowPerPage){
+		List<Map<String, Object>> list = new ArrayList<>();
 		Connection conn = null;
 		int beginRow = (currentPage-1)*rowPerPage;
 		

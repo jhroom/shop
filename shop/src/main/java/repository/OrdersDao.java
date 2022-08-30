@@ -76,9 +76,9 @@ public class OrdersDao {
 	}
 	
 	//전체 주문 목록(관리자) 5-1
-	public List<Orders> selectOrdersList(int beginRow, int rowPerPage, Connection conn) throws SQLException {
-		List<Orders> list = new ArrayList<>();
-		Orders orders = null;
+	public List<Map<String, Object>> selectOrdersList(int beginRow, int rowPerPage, Connection conn) throws SQLException {
+		List<Map<String, Object>> list = new ArrayList<>();
+		Map<String, Object> map = null;
 		String sql ="SELECT\r\n"
 				+ "		o.order_no orderNo ,o.goods_no goodsNo ,o.customer_id customerId ,g.goods_name goodsName "
 				+ "		, o.order_price orderPrice ,o.order_quantity orderQuantity ,o.order_addr orderAddress "
@@ -88,15 +88,6 @@ public class OrdersDao {
 				+ "		ORDER BY o.create_date DESC"
 				+ "		LIMIT ?,?";
 		
-		/*
-			SELECT
-				o.order_no orderNo ,o.customer_id customerId ,g.goods_name goodsName
-				, o.order_price orderPrice ,o.order_address orderAddress ,o.create_date createDate
-			FROM orders o INNER JOIN goods g
-			USING(goods_no)
-			ORDER BY o.create_date DESC
-			LIMIT ?,?
-		*/
 		PreparedStatement stmt = null;
 		ResultSet rest = null;
 		try {
@@ -105,17 +96,18 @@ public class OrdersDao {
 			stmt.setInt(2, rowPerPage);
 			rest = stmt.executeQuery();
 			while(rest.next()) {
-				orders = new Orders();
-				orders.setOrderNo(rest.getInt("orderNo"));
-				orders.setGoodsNo(rest.getInt("goodsNo"));
-				orders.setCustomerId(rest.getString("customerId"));
-				orders.setOrderQuantity(rest.getInt("orderQuantity"));
-				orders.setOrderPrice(rest.getInt("orderPrice"));
-				orders.setOrderAdress(rest.getString("orderAddress"));
-				orders.setOrderState(rest.getString("orderState"));
-				orders.setUpdateDate(rest.getString("updateDate"));
-				orders.setCreateDate(rest.getString("createDate"));
-				list.add(orders);
+				map = new HashMap<>();
+				map.put("orderNo", rest.getInt("orderNo"));
+				map.put("goodsNo", rest.getInt("goodsNo"));
+				map.put("goodsName", rest.getString("goodsName"));
+				map.put("customerId", rest.getString("customerId"));
+				map.put("orderQuantity", rest.getInt("orderQuantity"));
+				map.put("orderPrice", rest.getInt("orderPrice"));
+				map.put("orderAddress", rest.getString("orderAddress"));
+				map.put("orderState", rest.getString("orderState"));
+				map.put("updateDate", rest.getString("updateDate"));
+				map.put("createDate", rest.getString("createDate"));
+				list.add(map);
 			}
 		} finally {
 			if(rest != null) { rest.close(); }

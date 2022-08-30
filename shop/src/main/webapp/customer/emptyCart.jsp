@@ -12,6 +12,7 @@
 <body>
 	<div>
 		장바구니가 비어있습니다.
+		<a href="<%=request.getContextPath()%>/login/index.jsp">메인으로가기</a>
 	</div>
 </body>
 </html>

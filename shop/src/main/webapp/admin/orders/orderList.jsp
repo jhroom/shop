@@ -1,11 +1,14 @@
+<%@page import="java.util.Map"%>
 <%@page import="service.OrdersService"%>
 <%@page import="vo.Orders"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	List<Orders> list = new ArrayList<>();
+	//주문리스트 받을 객체
+	List<Map<String, Object>> list = new ArrayList<>();
 
+	//기본 현재 페이지 1
 	int currentPage = 1;
 	if(request.getParameter("currentPage") != null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -41,6 +44,7 @@
 				<tr>
 					<th>주문번호</th>
 					<th>상품번호</th>
+					<th>상품이름</th>
 					<th>고객ID</th>
 					<th>주문가격</th>
 					<th>주문수량</th>
@@ -52,19 +56,20 @@
 			</thead>
 			<tbody>
 			<%
-				for(Orders o : list) {
+				for(Map<String, Object> o : list) {
 			%>
 				<tr>
-					<td><%=o.getOrderNo() %></td>
-					<td><%=o.getGoodsNo() %></td>
-					<td><a href="<%=request.getContextPath()%>/admin/orders/orderListOne.jsp?customerId=<%=o.getCustomerId()%>">
-						<%=o.getCustomerId() %></a></td>
-					<td><%=o.getOrderPrice() %></td>
-					<td><%=o.getOrderQuantity() %></td>
-					<td><%=o.getOrderAdress() %></td>
-					<td><%=o.getOrderState() %></td>
-					<td><%=o.getUpdateDate() %></td>
-					<td><%=o.getCreateDate() %></td>
+					<td><%=o.get("orderNo") %></td>
+					<td><%=o.get("goodsNo") %></td>
+					<td><%=o.get("goodsName") %></td>
+					<td><a href="<%=request.getContextPath()%>/admin/orders/orderListOne.jsp?customerId=<%=o.get("customerId")%>">
+						<%=o.get("customerId") %></a></td>
+					<td><%=o.get("orderPrice") %></td>
+					<td><%=o.get("orderQuantity") %></td>
+					<td><%=o.get("orderAddress") %></td>
+					<td><%=o.get("orderState") %></td>
+					<td><%=o.get("updateDate") %></td>
+					<td><%=o.get("createDate") %></td>
 				</tr>
 			<%
 				}

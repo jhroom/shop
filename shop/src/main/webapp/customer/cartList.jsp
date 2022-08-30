@@ -81,7 +81,7 @@
 
 </body>
 <script>
-	$('#btn').click(fuction(){
+	$('#btn').click(function(){
 		
 	});
 </script>
