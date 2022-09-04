@@ -18,11 +18,12 @@ public class CounterService {
     	  conn.setAutoCommit(false);
     	  
 	      if(counterDao.selectCounterToday(conn) == null) { // 오늘날짜 접속자가 있었는지
-	    	  System.out.println("counter insert 하기");
-	    	  int insert = counterDao.insertCounter(conn); System.out.println("insert rlt : "+insert);
+	    	  System.out.println("Today null -> counter insert 하기");
+	    	  int insert = counterDao.insertCounter(conn);
+	    	  System.out.println("counter insert 성공여부 : "+insert);
 	      }
 	      else { 											// 오늘날짜의 카운터가 있으면 +1 업데이터
-	    	  System.out.println("counter +1 하기");
+	    	  System.out.println("Today not null -> counter update +1 하기");
 	        temp = counterDao.updateCounter(conn);		System.out.println("update rlt : "+temp);
 		        if(temp != 1) {
 		        	throw new Exception();

@@ -84,7 +84,7 @@
         </div>
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
-                <a href="" class="text-decoration-none">
+                <a href="<%=request.getContextPath() %>/login/index.jsp" class="text-decoration-none">
                     <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">JH Shop</span>
                 </a>
             </div>
@@ -142,15 +142,15 @@
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
                     <a href="" class="text-decoration-none d-block d-lg-none">
-                        <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
-                        <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
+                        <span class="h1 text-uppercase text-dark bg-light px-2">Jh Shop</span>
+                        <!-- <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span> -->
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <!-- <a href="index.html" class="nav-item nav-link active">Home</a> -->
                             <a href="<%=request.getContextPath() %>/customer/customerGoodsList.jsp" class="nav-item nav-link">Shop</a>
                             <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
@@ -161,6 +161,13 @@
                                 </div>
                             </div>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <%
+                           	 	if("employee".equals(session.getAttribute("user")) ){
+                            %>
+                            		<a href="<%=request.getContextPath()%>/admin/adminIndex.jsp" class="nav-item nav-link">Admin Page</a>
+                            <%	
+                            	}
+                            %>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="" class="btn px-0">

@@ -28,60 +28,54 @@
 	//
 	
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<div>
-		<a href="">인기순</a>
-		<a href="">판매량순</a>
-		<a href="">낮은가격순</a>
-		<a href="">높은가격순</a>
-		<a href="">최신순</a>
-	</div>
-	
-	<div>
-	<table border="1">
-		<tr>
-			<%	
-				int i= 1;
-				for(Map<String, Object> m : list) {
-			%>
-				<td>
-					<div><a href="<%=request.getContextPath()%>/customer/customerGoodsOne.jsp?goodsNo=<%=m.get("goodsNo")%>">
-							<img src='<%=request.getContextPath()%>/upload/<%=m.get("fileName")%>' width="100px"></a></div>
-					<div><%=m.get("goodsName") %></div>
-					<div><%=m.get("goodsPrice") %></div>
-				</td>
-			<%
-					if(i%4==0){
-			%>
-						</tr><tr>
-			<%
-					}
-					i++;
-				}
-				//테이블 깨지는거 방지 4로 안채워지면 할 방법
-				int cnt = 4- (list.size() % 4);
-				if(cnt == 4) {
-					cnt = 0;
-				}
-				
-				for(int j=0; j<cnt; j++){
+	<jsp:include page="/theme/header.jsp"/>
+	<div class="container-fluid">
+		<div  class="text-center">
+			<a href="">인기순</a>
+			<a href="">판매량순</a>
+			<a href="">낮은가격순</a>
+			<a href="">높은가격순</a>
+			<a href="">최신순</a>
+		</div>
+		
+		<div class="text-center">
+		<table border="1">
+			<tr>
+				<%	
+					int i= 1;
+					for(Map<String, Object> m : list) {
 				%>
-					<td>&nbsp;</td>
+					<td>
+						<div><a href="<%=request.getContextPath()%>/customer/customerGoodsOne.jsp?goodsNo=<%=m.get("goodsNo")%>">
+								<img src='<%=request.getContextPath()%>/upload/<%=m.get("fileName")%>' width="100px"></a></div>
+						<div><%=m.get("goodsName") %></div>
+						<div><%=m.get("goodsPrice") %></div>
+					</td>
 				<%
-				}
-			%>
-		</tr>
-	</table>
+						if(i%4==0){
+				%>
+							</tr><tr>
+				<%
+						}
+						i++;
+					}
+					//테이블 깨지는거 방지 4로 안채워지면 할 방법
+					int cnt = 4- (list.size() % 4);
+					if(cnt == 4) {
+						cnt = 0;
+					}
+					
+					for(int j=0; j<cnt; j++){
+					%>
+						<td>&nbsp;</td>
+					<%
+					}
+				%>
+			</tr>
+		</table>
+		</div>
 	</div>
-	
-</body>
-</html>
+<jsp:include page="/theme/footer.jsp"/>
 
 
 
