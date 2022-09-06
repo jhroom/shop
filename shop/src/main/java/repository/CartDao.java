@@ -29,7 +29,7 @@ public class CartDao {
 		
 		return result;
 	}
-	
+	// 고객아이디에 의한 장바구니 리스트 조회하기
 	public List<Map<String,Object>> selectCartById(String customerId, Connection conn) throws SQLException {
 		List<Map<String,Object>> list = new ArrayList<>();
 		Map<String,Object> map = null;

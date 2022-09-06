@@ -54,11 +54,7 @@
 	수량선택
 	카트담기구현해야함
 	
-	<form action="<%=request.getContextPath() %>/customer/cartList.jsp">
-		<input type="hidden" name="customerId" id="id" value="<%=session.getAttribute("id")%>">
-		<input type="hidden" name="goodsNo" id="no" value="<%=goodsNo%>">
-		<button type="submit" id="btn" >장바구니가기</button>
-	</form>
+	<a href="<%=request.getContextPath() %>/customer/cartList.jsp">장바구니로</a>
 	
 </body>
 <script>

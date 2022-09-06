@@ -11,13 +11,16 @@
 	String addrDetail = request.getParameter("addrDetail");		System.out.println("addrDetail : " + addrDetail);
 	
 	
-
 	List<Map<String,Object>> list = (List<Map<String,Object>>)session.getAttribute("orderList");
 	System.out.println("orderList : " + list.toString());
 	
 	int orderPrice = 0; 
 	
 	Orders order = null;
+	// cartList에서 불러오던 것처럼 리스트는 새로 불러오고 새로운 주소로 주문한다면 그것을 오더 객체에 대입하기
+	// orderPrice 도 여기서 다시 계산
+	
+	//ㅊ
 	for(Map<String,Object> m : list){
 		order = new Orders();
 		
@@ -35,12 +38,14 @@
 		
 		if( ordersService.addOrder(order)){
 			System.out.println("오더성공");
-			session.removeAttribute("orderList");
+			//session.removeAttribute("orderList");
 			response.sendRedirect(request.getContextPath()+"/customer/cartList.jsp");
+			return;
 		} else {
 			System.out.println("오더실패");
-			session.removeAttribute("orderList");
-			response.sendRedirect(request.getContextPath()+"/customer/cartList.jsp/orderFail");
+			//session.removeAttribute("orderList");
+			response.sendRedirect(request.getContextPath()+"/customer/cartList.jsp?orderFail");
+			return;
 		}
 		
 	}

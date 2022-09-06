@@ -8,10 +8,10 @@
 	//구매하는 사람 상품 정보 받아오기
 	String customerId = request.getParameter("customerId");
 	System.out.println("customerId : " + customerId);
-	
+	//구매하는 상품의 번호
 	int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 	System.out.println("goodsNo : " + goodsNo);
-	
+	//구매하는 상품의 수량
 	int cartQuantity = Integer.parseInt(request.getParameter("cartQuantity"));
 	System.out.println("cartQuantity : " + cartQuantity);
 	
@@ -21,10 +21,10 @@
 	cart.setCustomerId(customerId);
 	cart.setGoodsNo(goodsNo);
 	cart.setCartQuantity(cartQuantity);
-	
+	// 서비스 호출
 	CartService cartService = new CartService();
 	
-	//cart객체 서비스 성공시  true반환
+	//cart객체 서비스 장바구니 담기에 성공시  true반환
 	boolean result = cartService.addCart(cart);
 	
 	if(result){
