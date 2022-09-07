@@ -30,7 +30,10 @@
     <link href="<%=request.getContextPath() %>/theme/css/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-
+<style>
+	li a { color : #3D464D;}
+	td a { color : #00A7FF;}
+</style>
 <body>
     <!-- Topbar Start -->
     <div class="container-fluid">

@@ -21,53 +21,50 @@
 	customerList = customerService.getCustomerList(currentPage, rowPerPage);
 	
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>고객 관리 페이지</title>
-</head>
-<body>
-	<div><!-- 상단메뉴 -->
-		<ul>
-		<li><a href="<%=request.getContextPath() %>/admin/employee/employeeList.jsp">사원관리페이지</a></li>
-		<li><a href="<%=request.getContextPath() %>/admin/goods/adminGoodsList.jsp">상품관리페이지</a></li><!-- 상품목록/등록/수정 -->
-		<li><a href="<%=request.getContextPath() %>/admin/orders/orderList.jsp">주문관리페이지</a></li>
-		<li><a href="<%=request.getContextPath() %>/admin/customer/customerList.jsp">고객관리페이지</a></li>
-		<li><a href="<%=request.getContextPath() %>/admin/adminNoticeList.jsp">공지관리페이지</a></li>
-		</ul>
+<%@ include file="../../theme/header.jsp" %>
+	<div class="container">
+	<div class="row">
+	
+		<div class="col-sm-3 list">
+			<%-- <%@ include file="../managementList.jsp" %> --%>
+			<jsp:include page="../managementList.jsp"/>
+		</div>
+		
+		<div class="col-sm-9">
+			<table  class="table table-striped">
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>Pass</th>
+						<th>Name</th>
+						<th>Adress</th>
+						<th>Tel</th>
+						<th>Update Date</th>
+						<th>Create Date</th>
+						<th>계정 삭제</th>
+					</tr>
+				</thead>
+				<tbody>
+				<%
+					for(Customer list : customerList) {
+				%>
+					<tr>
+						<td><a href="<%=request.getContextPath()%>/admin/customer/orderListById.jsp?id=<%=list.getCustomerId()%>"><%=list.getCustomerId() %></a></td>
+						<td><%=list.getCustomerPass().substring(0,8)+"...." %><a href="<%=request.getContextPath() %>/admin/customer/updatePassForm.jsp?id=<%=list.getCustomerId()%>"><br>변경하기</a></td>
+						<td><%=list.getCustomerName() %></td>
+						<td><%=list.getCustomerAdress() %></td>
+						<td><%=list.getCustomerTel() %></td>
+						<td><%=list.getUpdateDate() %></td>
+						<td><%=list.getCreateDate() %></td>
+						<td><a href="<%=request.getContextPath()%>/admin/customer/deleteAccountForm.jsp?id=<%=list.getCustomerId()%>">탈퇴</a></td>
+					</tr>
+				<%
+					}
+				%>
+				</tbody>
+			</table>
+		</div>
+		
 	</div>
-	<table border="1">
-		<thead>
-			<tr>
-				<th>id</th>
-				<th>Pass</th>
-				<th>Name</th>
-				<th>Adress</th>
-				<th>Tel</th>
-				<th>Update Date</th>
-				<th>Create Date</th>
-				<th>계정 삭제</th>
-			</tr>
-		</thead>
-		<tbody>
-		<%
-			for(Customer list : customerList) {
-		%>
-			<tr>
-				<td><a href="<%=request.getContextPath()%>/admin/customer/orderListById.jsp?id=<%=list.getCustomerId()%>"><%=list.getCustomerId() %></a></td>
-				<td><%=list.getCustomerPass() %><a href="<%=request.getContextPath() %>/admin/customer/updatePassForm.jsp?id=<%=list.getCustomerId()%>">변경하기</a></td>
-				<td><%=list.getCustomerName() %></td>
-				<td><%=list.getCustomerAdress() %></td>
-				<td><%=list.getCustomerTel() %></td>
-				<td><%=list.getUpdateDate() %></td>
-				<td><%=list.getCreateDate() %></td>
-				<td><a href="<%=request.getContextPath()%>/admin/customer/deleteAccountForm.jsp?id=<%=list.getCustomerId()%>">탈퇴</a></td>
-			</tr>
-		<%
-			}
-		%>
-		</tbody>
-		</table>
-</body>
-</html>
+	</div>
+<%@ include file="../../theme/footer.jsp" %>
